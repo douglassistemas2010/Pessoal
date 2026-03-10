@@ -1,0 +1,260 @@
+------------------------------------------------------------------------------------------------------------------------------------
+|                                               DEMONSTRATIVO DE OPERAÇÕES EM ABERTO                                               |
+------------------------------------------------------------------------------------------------------------------------------------
+100075344  RONALDO JOAO VENDRAME                                                    Matrícula:  0000106768
+Local de Acerto: 0001 C.Vale - Palotina                                             Dt.Emissão: 09.03.2026 - 16:47:56 - 1001-230757
+Áreas Próprias:        83,81                                                        Áreas Arrendadas:         0,00
+
+Procurador(es): 100111081  - ELISABETE MARIA RIEDI VENDRAME
+------------------------------------------------------------------------------------------------------------------------------------
+|                                                       PRODUTOS EM DEPÓSITO                                                       |
+------------------------------------------------------------------------------------------------------------------------------------
+Produto                                        Kg.Liquido
+MILHO COMERCIAL                                10.000,000
+SOJA COMERCIAL TRANSGENICA                     19.693,000
+------------------------------------------------------------------------------------------------------------------------------------
+|                                                    PRODUTO DISPONÍVEL A FIXAR                                                    |
+------------------------------------------------------------------------------------------------------------------------------------
+Centro Produto                                   Qtd.Liq.a fixar UM               Preço       Valor Bruto**
+C001   MILHO COMERCIAL                            166,667        SC                   #                0,00
+C001   SOJA COMERCIAL TRANSGENICA                 328,217        SC                   #                0,00
+
+Obs: (*) Preço do Dia Conforme Tabela e Tipo. (#) Sem preço
+Obs: (**) Valor Apresentado sem os Descontos
+
+
+Obs: (***) Valor Apresentado sem os Descontos
+
+------------------------------------------------------------------------------------------------------------------------------------
+|                                                        DÉBITOS EM PRODUTO                                                        |
+------------------------------------------------------------------------------------------------------------------------------------
+Descrição           Contrato           Produto                                         Qtde.Nominal   Vencto
+CÉDULA PROD. RURAL  3470364            SOJA COMERCIAL                                 27.649,000    01.04.2026
+
+------------------------------------------------------------------------------------------------------------------------------------
+|                                                     DÉBITOS DE TÍTULOS EM R$                                                     |
+------------------------------------------------------------------------------------------------------------------------------------
+Descrição            Vencto          Vl.Nominal         Valor Atual
+AGROQUIMICOS         08.12.2025        1.173,05            1.280,60
+AGROQUIMICOS        08.12.2025           23,56                36,00
+FERTILIZANTES        09.12.2025          120,92                180,92
+DOCS.FATURAM.        16.12.2025            3.828,20                4.560,00
+SEMENTE DE SOJA        16.12.2025            7.800,00                9.800,00
+DOCS.FATURAM.        23.12.2025            8,20                0,00
+DOCS.FATURAM.        31.12.2025            8,20                0,00
+SEMENTE DE SOJA        16.01.2026        7.065,77                8.000,00
+FERTILIZANTES         05.02.2026        7.800,00            8.064,90
+AGROQUIMICOS         01.04.2026       48.681,21           45.620,00
+PREST.SERV.AS.TEC.AG 01.04.2026        1.500,00            1.500,00
+
+TOTAL DÉBITOS DE TÍTULOS     R$       66.397,31           56.465,50
+
+------------------------------------------------------------------------------------------------------------------------------------
+|                                              RESUMO DE DÉBITOS POR MÊS DE VENCIMENTO                                             |
+------------------------------------------------------------------------------------------------------------------------------------
+Mês/Ano                Valor Nominal       Valor Atual
+12/2025                     1.350,33          1.280,60
+01/2026                     7.065,77              0,00
+02/2026                     7.800,00          8.064,90
+04/2026                    50.181,21         47.120,00
+
+TOTAL   R$                 66.397,31         56.465,50
+
+
+
+                                                           Página     1
+------------------------------------------------------------------------------------------------------------------------------------
+|                                              CONTRATOS DE INSUMOS COM PREÇO DEFINIDO                                             |
+------------------------------------------------------------------------------------------------------------------------------------
+Nr. Pedido Descrição da Mercadoria                  Local Negócios    Vencimento       Valor Original            Quantidade
+1009083868 ZAPP QI 620 20L                          PALOTINA          01.04.2026            70.741,81             120,000  UN
+1009083890 KINETOMAX INJETAVEL              FR/50ML PALOTINA          09.10.2025                67,84               1,000  UN
+1009083896 ZAPP QI 620 20L                          PALOTINA          09.10.2025            13.215,79              24,000  UN
+1009083896 ROUNDUP TRANSORB R  20L                  PALOTINA          09.10.2025            10.842,94              19,000  UN
+1009083899 ZAPP QI 620 20L                          PALOTINA          09.10.2025               550,66               1,000  UN
+1009083925 ZAPP QI 620 20L                          PALOTINA          15.10.2025             2.758,25               5,000  UN
+1009083928 ZAPP QI 620 20L                          PALOTINA          10.10.2025             1.101,65               2,000  UN
+1009083931 ZAPP QI 620 20L                          PALOTINA          10.10.2025             1.101,65               2,000  UN
+1009083943 ZAPP QI 620 20L                          PALOTINA          01.04.2026             2.947,58               5,000  UN
+1009083945 ZAPP QI 620 20L                          PALOTINA          01.04.2026             2.358,06               4,000  UN
+1009083979 ZAPP QI 620 20L                          PALOTINA          13.10.2025               100,00               1,000  UN
+1009083994 ZAPP QI 620 20L                          PALOTINA          14.10.2025               551,48               1,000  UN
+1009083995 ZAPP QI 620 20L                          PALOTINA          17.11.2025             5.571,38              10,000  UN
+1009083998 ZAPP QI 620 20L                          PALOTINA          01.04.2026            89.606,29             152,000  UN
+1009083999 ZAPP QI 620 20L                          PALOTINA          14.10.2025             2.205,94               4,000  UN
+1009084000 ZAPP QI 620 20L                          PALOTINA          10.11.2025             2.779,85               5,000  UN
+1009084001 ZAPP QI 620 20L                          PALOTINA          08.12.2025             1.122,21               2,000  UN
+1009084002 ZAPP QI 620 20L                          PALOTINA          14.10.2025             5.514,85              10,000  UN
+1009084012 ZAPP QI 620 20L                          PALOTINA          17.11.2025             1.114,28               2,000  UN
+1009084012 ROUNDUP TRANSORB R  20L                  PALOTINA          17.11.2025               577,40               1,000  UN
+1009084019 ZAPP QI 620 20L                          PALOTINA          15.10.2025               550,00               1,000  UN
+1009084024 ZAPP QI 620 20L                          PALOTINA          01.04.2026           316.119,77             513,000  UN
+1009084024 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026             1.232,43               2,000  UN
+1009084024 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026             1.848,65               3,000  UN
+1009084027 ZAPP QI 620 20L                          PALOTINA          01.04.2026             6.162,18              10,000  UN
+1009084028 ZAPP QI 620 20L                          PALOTINA          01.04.2026             3.081,09               5,000  UN
+1009084044 ZAPP QI 620 20L                          PALOTINA          15.10.2025               100,00               1,000  UN
+1009084082 ZAPP QI 620 20L                          PALOTINA          17.10.2025             1.153,97               2,000  UN
+1009084108 ZAPP QI 620 20L                          PALOTINA          22.10.2025             8.667,74              15,000  UN
+1009084133 ZAPP QI 620 20L                          PALOTINA          17.11.2025             2.329,50               4,000  UN
+1009084201 ZAPP QI 620 20L                          PALOTINA          01.04.2026           325.363,03             528,000  UN
+1009084201 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026             1.643,25               3,000  UN
+1009084201 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026             2.191,00               4,000  UN
+1009084201 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026               547,75               1,000  UN
+1009084201 ZAPP QI 620 20L                          PALOTINA          01.04.2026               616,22               1,000  UN
+1009084201 ZAPP QI 620 20L                          PALOTINA          01.04.2026               616,22               1,000  UN
+1009084201 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026               547,75               1,000  UN
+1009084201 ROUNDUP ORIGINAL MAIS  20L               PALOTINA          01.04.2026               547,75               1,000  UN
+1009084222 ZAPP QI 620 20L                          PALOTINA          01.04.2026            92.432,68             150,000  UN
+1009084224 ZAPP QI 620 20L                          PALOTINA          23.10.2025            86.703,45             150,000  UN
+1009084329 ZAPP QI 620 20L                          PALOTINA          13.11.2025               581,68               1,000  UN
+1009084330 ZAPP QI 620 20L                          PALOTINA          12.11.2025             1.163,00               2,000  UN
+1009084330 TILT 5L                                  PALOTINA          12.11.2025               353,66               1,000  UN
+1009084331 TILT 5L                                  PALOTINA          19.11.2025               354,41               1,000  UN
+1009084357 ZAPP QI 620 20L                          PALOTINA          29.10.2025             1.158,13               2,000  UN
+1009084361 ZAPP QI 620 20L                          PALOTINA          29.10.2025             1.158,13               2,000  UN
+1009084379 ZAPP QI 620 20L                          PALOTINA          01.04.2026             9.243,27              15,000  UN
+1009084380 ZAPP QI 620 20L                          PALOTINA          01.04.2026             9.243,27              15,000  UN
+1009084381 ZAPP QI 620 20L                          PALOTINA          01.04.2026             6.162,18              10,000  UN
+1009084459 ZAPP QI 620 20L                          PALOTINA          01.04.2026             8.781,11              15,000  UN
+1009084477 ZAPP QI 620 20L                          PALOTINA          04.11.2025            87.016,10             150,000  UN
+1009084495 ZAPP QI 620 20L                          PALOTINA          05.11.2025             1.160,56               2,000  UN
+1009084506 ZAPP QI 620 20L                          PALOTINA          01.04.2026            92.432,68             150,000  UN
+1009084529 ZAPP QI 620 20L                          PALOTINA          01.04.2026             9.243,27              15,000  UN
+1009084708 SAL AGROPECUARIO SC 25KG                 PALOTINA          15.12.2025                95,47               4,000  UN
+1009084708 SM MINER PLUS PRONTO             SC/30KG PALOTINA          15.12.2025               919,36               1,000  UN
+1009084709 SAL AGROPECUARIO SC 25KG                 PALOTINA          15.12.2025                23,87               1,000  UN
+1009084761 ZAPP QI 620 20L                          PALOTINA          27.11.2025             1.168,25               2,000  UN
+1009084761 ROUNDUP TRANSORB R  20L                  PALOTINA          27.11.2025             2.920,61               5,000  UN
+
+                                                           Página     2
+1009084874 ZAPP QI 620 20L                          PALOTINA          22.12.2025             1.770,27               3,000  UN
+1009084878 SAL AGROPECUARIO SC 25KG                 PALOTINA          29.12.2025               217,14              10,000  UN
+1009084878 RACAO BOVINO CONFINAMENTO 16%  25KG      PALOTINA          29.12.2025                28,76              20,000  SAC
+1009084902 SEM SOJA M7739IPRO 200STE                PALOTINA          01.04.2026            15.100,00             151,000  SAC
+1009085514 PULVERIZACAO AEREA - ha (HECTARE)        PALOTINA          01.04.2026             1.400,00-             20,000- UA
+1009085780 PULVERIZACAO AEREA - ha (HECTARE)        PALOTINA          01.04.2026             1.050,00              15,000  UA
+1009085816 PULVERIZACAO AEREA - ha (HECTARE)        PALOTINA          01.04.2026             1.050,00              15,000  UA
+1009085828 FERT 33 00 00 - OUROFERTIL MG BB KG      PALOTINA          07.01.2026             2.400,00               1,000  TO
+1009085950 AUREO 5L                                 PALOTINA          14.01.2026             3.420,00               5,000  UN
+1009086034 SAL AGROPECUARIO SC 25KG                 PALOTINA          23.01.2026                23,68               1,000  UN
+1009086099 FERT 02 20 18 TMIX EVOLUTION-YARA  BB KG PALOTINA          01.04.2026             1.600,00               2,000  TO
+1009086243 ZAPP QI 620 20L                          PALOTINA          29.01.2026             9.750,00              15,000  UN
+
+------------------------------------------------------------------------------------------------------------------------------------
+|                                               MERCADORIAS A RETIRAR CONTRATOS PAGOS                                              |
+------------------------------------------------------------------------------------------------------------------------------------
+Nº Pedido  Descrição mercadoria                     Local Negócios               Quantidade
+1008231734 BRANDT BECATRON 1L                       PALOTINA                       4,000  UN
+1008231734 ROUNDUP TRANSORB R  20L                  PALOTINA                       1,000  UN
+1008669333 SUPER PLUS U-10 1L                       PALOTINA                       1,000  UN
+1008669333 ROUNDUP TRANSORB R  20L                  PALOTINA                       1,000  UN
+1008669333 FEROCE 10KG                              PALOTINA                       2,000  UN
+1008669333 VERDAVIS 5L                              PALOTINA                       1,000  UN
+1008669333 EXCALIA MAX 5L                           PALOTINA                       2,000  UN
+1008669333 ALADE 5L                                 PALOTINA                       2,000  UN
+1008669333 REGLONE 20L                              PALOTINA                       2,000  UN
+1008669333 OMEGA TORANGE 1L                         PALOTINA                       4,000  UN
+1008934821 SUPER PLUS U-10 1L                       PALOTINA                       1,000  UN
+1008934821 FEROCE 10KG                              PALOTINA                       2,000  UN
+1008934821 VERDAVIS 5L                              PALOTINA                       1,000  UN
+1008934821 EXCALIA MAX 5L                           PALOTINA                       2,000  UN
+1008934821 ALADE 5L                                 PALOTINA                       2,000  UN
+1008934821 REGLONE 20L                              PALOTINA                       2,000  UN
+1008934821 OMEGA TORANGE 1L                         PALOTINA                       3,000  UN
+1008985039 SEM MILHO DKB360 PRO3 T/P 60STE          PALOTINA                      17,000  SAC
+1008985039 SEM MILHO B2702 VYHR T/P+DERM+LUMI 60STE PALOTINA                      26,000  SAC
+1009004423 PRIMOLEO 20L                             PALOTINA                       4,000  UN
+1009004423 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+1009004423 PERITO 970 SG 10KG                       PALOTINA                       3,000  UN
+1009004423 SPERTO 5KG                               PALOTINA                       3,000  UN
+1009004423 FEROCE 10KG                              PALOTINA                       3,000  UN
+1009004423 ABACUS HC 5L                             PALOTINA                       2,000  UN
+1009004427 PRIMOLEO 20L                             PALOTINA                       3,000  UN
+1009004427 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+1009004427 PERITO 970 SG 10KG                       PALOTINA                       1,000  UN
+1009004427 SPERTO 5KG                               PALOTINA                       1,000  UN
+1009004427 FEROCE 10KG                              PALOTINA                       2,000  UN
+1009004427 ABACUS HC 5L                             PALOTINA                       1,000  UN
+1009014130 FERT 29 08 12 POLYBLEN N-FAST ICL  BB KG PALOTINA                       9,000  TO
+1009083882 ZAPP QI 620 20L                          PALOTINA                      30,000  UN
+1009084024 ROUNDUP ORIGINAL MAIS  20L               PALOTINA                       1,000  UN
+1009084024 ZAPP QI 620 20L                          PALOTINA                       1,000  UN
+1009084024 ROUNDUP ORIGINAL MAIS  20L               PALOTINA                       1,000  UN
+1009084024 ROUNDUP ORIGINAL MAIS  20L               PALOTINA                       1,000  UN
+1009084056 ZAPP QI 620 20L                          PALOTINA                       4,000  UN
+1009084057 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+1009084288 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+1009084767 ROUNDUP ORIGINAL MAIS  20L               PALOTINA                       4,000  UN
+1009084775 ZAPP QI 620 20L                          PALOTINA                       4,000  UN
+1009084781 ZAPP QI 620 20L                          PALOTINA                       1,000  UN
+1009084798 ZAPP QI 620 20L                          PALOTINA                       1,000  UN
+1009084869 ZAPP QI 620 20L                          PALOTINA                       4,000  UN
+1009084870 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+
+                                                           Página     3
+1009084870 ZAPP QI 620 20L                          PALOTINA                       6,000  UN
+1009084907 ZAPP QI 620 20L                          PALOTINA                       2,000  UN
+1009084918 ZAPP QI 620 20L                          PALOTINA                       4,000  UN
+
+------------------------------------------------------------------------------------------------------------------------------------
+|                                               MERCADORIAS A RETIRAR - VENDA FUTURA                                               |
+------------------------------------------------------------------------------------------------------------------------------------
+Nº Pedido  NF              Descrição mercadoria                     Local Negócios               Quantidade
+1009085114 000031965-520   RACAO BOVINO CONFINAMENTO 16%  25KG      C.VALE - PALOTIN             2,000  SAC
+1009085114 000031965-520   SAL AGROPECUARIO SC 25KG                 C.VALE - PALOTIN             5,000  UN
+1009085347 000032101-520   SERINGA DESC. C/AGULHA 1ML               C.VALE - PALOTIN             5,000  UN
+1009084039 000031643-520   ZAPP QI 620 20L                          C.VALE - PALOTIN             4,000  UN
+1009086100 000032575-520   FERT 02 20 18 TMIX EVOLUTION-YARA  BB KG C.VALE - PALOTIN             5,000  TO
+------------------------------------------------------------------------------------------------------------------------------------
+|                                            POSIÇÃO DE NOTAS FISCAIS DE CRÉDITO DE ICMS                                           |
+------------------------------------------------------------------------------------------------------------------------------------
+ICMS-Notas Fiscais Apresentadas e Aprovadas          R$       17.428,43
+ICMS-Credito Reconhecido                             R$            0,00
+ICMS-Em Homologação                                  R$            0,00
+ICMS-Homologado, aguardando liberação para pagamento R$            0,00
+ICMS-Creditos Homologados                            R$      165.292,20
+TOTAL DOS CRÉDITOS APRESENTADOS                      R$      182.720,63
+
+*Valor Bruto, sujeito a cobrança de despesas administrativas, despesas com deságio  na transferência do crédito para ter-
+ceiros. Análise, prazos e liberação de transferência de crédito de ICMS, dependem de atos da Secretaria de Fazenda do Es-
+tado conforme previsto nos artigos 35 a 58 do RIICMS/PR e NPF 068/2005.
+
+
+                                                           Página     4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

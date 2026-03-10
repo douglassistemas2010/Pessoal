@@ -1,0 +1,2907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Cliente - Visão 360º - C.VALE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fb 0%, #f0f2f7 100%);
+            color: #334155;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2d5a8c 100%);
+            color: white;
+            padding: 16px 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-bottom: 3px solid #059669;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+
+        .header-content > div:first-child {
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.92;
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            height: 162px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: filter 0.3s ease;
+            max-width: 100%;
+        }
+
+        .header-logo:hover {
+            filter: brightness(1.15) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .header-info {
+            text-align: right;
+            font-size: 13px;
+            opacity: 0.85;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 44px;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(45, 90, 140, 0.3);
+        }
+
+        .card h2 {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #0f172a;
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 16px;
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.3;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            color: #2d5a8c;
+            vertical-align: middle;
+        }
+
+        [data-lucide] {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+            color: #2d5a8c;
+        }
+
+        .card h2 [data-lucide] {
+            color: #2d5a8c;
+        }
+
+        .insight-card [data-lucide] {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: text-top;
+        }
+
+        .cliente-header {
+            margin-bottom: 32px;
+        }
+
+        .cliente-identidade {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .cliente-nome {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .cliente-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .cliente-meta-item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .cliente-meta-label {
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .cliente-meta-valor {
+            font-weight: 700;
+            color: #2d5a8c;
+        }
+
+        .cliente-procurador {
+            background: rgba(240, 249, 255, 0.8);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 3px solid #059669;
+            border: 1px solid rgba(226, 232, 240, 0.3);
+            border-left: 3px solid #059669;
+        }
+
+        .cliente-procurador-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .cliente-procurador-valor {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .cliente-propriedade {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .classificacoes-section {
+            margin: 32px 0;
+        }
+
+        .classificacoes-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .classificacoes-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .classificacao-card {
+            padding: 14px;
+            background: rgba(248, 250, 252, 0.8);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            border-left: 3px solid #2d5a8c;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .classificacao-card:hover {
+            background: rgba(248, 250, 252, 0.95);
+            border-left-color: #059669;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .classificacao-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .classificacao-valor {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+        }
+
+        /* Estilos para Placeholders (Aguardando C4C) */
+        .classificacao-pendente {
+            opacity: 0.6;
+            background: rgba(226, 232, 240, 0.3);
+            border-left-color: #cbd5e1;
+        }
+
+        .classificacao-pendente:hover {
+            background: rgba(226, 232, 240, 0.4);
+            border-left-color: #cbd5e1;
+            box-shadow: none;
+        }
+
+        .historico-placeholder {
+            opacity: 0.5;
+        }
+
+        .historico-placeholder .historico-dot {
+            background: #cbd5e1;
+        }
+
+        .oportunidade-placeholder {
+            opacity: 0.5;
+            border-color: rgba(203, 213, 225, 0.3);
+            background: rgba(226, 232, 240, 0.2);
+        }
+
+        @media (max-width: 1440px) {
+            .classificacoes-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .classificacoes-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .classificacoes-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .classificacoes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .classificacoes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .data-atualização {
+            text-align: right;
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .info-item {
+            padding: 16px;
+            background: rgba(248, 250, 252, 0.8);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            border-left: 4px solid #2d5a8c;
+            border: 1px solid rgba(226, 232, 240, 0.3);
+            border-left: 4px solid #2d5a8c;
+            transition: all 0.2s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(248, 250, 252, 0.95);
+            border-left-color: #059669;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .info-unit {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-left: 4px;
+        }
+
+        .kpi-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: rgba(248, 250, 252, 0.85);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 24px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(226, 232, 240, 0.4);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .kpi-card:hover {
+            background: rgba(248, 250, 252, 0.95);
+            border-color: rgba(203, 213, 225, 0.6);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-card.positive .kpi-value { color: #059669; }
+        .kpi-card.negative .kpi-value { color: #dc2626; }
+        .kpi-card.warning .kpi-value { color: #ea580c; }
+
+        /* KPI com valor zero - desabilitado */
+        .kpi-card.zero {
+            background: rgba(226, 232, 240, 0.4);
+            border-color: rgba(191, 206, 218, 0.3);
+            opacity: 0.6;
+        }
+
+        .kpi-card.zero .kpi-value {
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .kpi-card.zero .kpi-label {
+            color: #cbd5e1;
+        }
+
+        .kpi-card.zero:hover {
+            background: rgba(226, 232, 240, 0.5);
+            border-color: rgba(191, 206, 218, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.92);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border-color: rgba(203, 213, 225, 0.6);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+            letter-spacing: 0.1px;
+            line-height: 1.4;
+        }
+
+        canvas {
+            max-height: 300px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e8ecf1 100%);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #334155;
+            border-bottom: 2px solid #cbd5e1;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        td {
+            padding: 13px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        tbody tr:hover {
+            background: #f0f9ff;
+            transition: all 0.2s ease;
+        }
+
+        .amount-positive {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .amount-negative {
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .amount-value {
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .status-tag {
+            font-size: 12px;
+            color: #64748b;
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .status-pendente {
+            color: white;
+            background-color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .status-vencido {
+            color: white;
+            background-color: #dc2626;
+            font-weight: 600;
+        }
+
+        .data-vencida {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #64748b;
+        }
+
+        .spinner {
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #2d5a8c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(220, 38, 38, 0.6);
+            }
+        }
+
+        .kpi-card.pulse-card {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d5a8c;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .alert-vencido {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            color: #991b1b;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .alert-vencido::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #dc2626;
+            border-radius: 50%;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .alert-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alert-badge [data-lucide] {
+            width: 24px;
+            height: 24px;
+            color: #dc2626;
+            stroke-width: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .badge.success { background: #d1fae5; color: #065f46; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.danger { background: #fee2e2; color: #991b1b; }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .insight-card {
+            background: rgba(255, 255, 255, 0.55);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 4px solid #2d5a8c;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 2px rgba(45, 90, 140, 0.2);
+        }
+
+        .insight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12), inset 0 0 0 2px rgba(45, 90, 140, 0.3);
+        }
+
+        .insight-card.positive {
+            background: rgba(255, 255, 255, 0.55);
+            border-left-color: #10b981;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 2px rgba(16, 185, 129, 0.3);
+        }
+
+        .insight-card.positive:hover {
+            box-shadow: 0 15px 40px rgba(5, 150, 105, 0.15), inset 0 0 0 2px rgba(16, 185, 129, 0.5);
+        }
+
+        .insight-card.warning {
+            background: rgba(255, 255, 255, 0.55);
+            border-left-color: #fb923c;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 2px rgba(251, 146, 60, 0.3);
+        }
+
+        .insight-card.warning:hover {
+            box-shadow: 0 15px 40px rgba(234, 88, 12, 0.15), inset 0 0 0 2px rgba(251, 146, 60, 0.5);
+        }
+
+        .insight-card.negative {
+            background: rgba(255, 255, 255, 0.55);
+            border-left-color: #ef4444;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 2px rgba(239, 68, 68, 0.3);
+        }
+
+        .insight-card.negative:hover {
+            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.15), inset 0 0 0 2px rgba(239, 68, 68, 0.5);
+        }
+
+        .insight-card.info {
+            background: rgba(255, 255, 255, 0.55);
+            border-left-color: #3b82f6;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        .insight-card.info:hover {
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.15), inset 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .insight-title {
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 13px;
+            letter-spacing: 0.15px;
+            line-height: 1.4;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .insight-text {
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .insight-indicator {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            cursor: help;
+            transition: all 0.2s ease;
+        }
+
+        .insight-card:hover .insight-indicator {
+            transform: scale(1.2);
+        }
+
+        .insight-indicator.positive {
+            background: #10b981;
+            border: 2px solid #dcfce7;
+        }
+
+        .insight-indicator.warning {
+            background: #fb923c;
+            border: 2px solid #fed7aa;
+        }
+
+        .insight-indicator.negative {
+            background: #ef4444;
+            border: 2px solid #fee2e2;
+        }
+
+        .insight-indicator.info {
+            background: #3b82f6;
+            border: 2px solid #dbeafe;
+        }
+
+        .insight-card {
+            position: relative;
+        }
+
+        .historico-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .historico-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .historico-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #2d5a8c 0%, #059669 100%);
+        }
+
+        .historico-item {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 24px;
+            position: relative;
+            padding-left: 80px;
+        }
+
+        .historico-dot {
+            position: absolute;
+            left: 8px;
+            top: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #2d5a8c;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 4px rgba(45, 90, 140, 0.1);
+        }
+
+        .historico-conteudo {
+            flex: 1;
+            padding: 16px;
+            background: rgba(248, 250, 252, 0.8);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
+            border-left: 3px solid #2d5a8c;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            border-left: 3px solid #2d5a8c;
+            transition: all 0.2s ease;
+        }
+
+        .historico-conteudo:hover {
+            background: rgba(248, 250, 252, 0.95);
+            border-left-color: #059669;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .historico-data {
+            font-size: 12px;
+            font-weight: 600;
+            color: #2d5a8c;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+
+        .historico-consultor {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .historico-texto {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .oportunidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .oportunidade-card {
+            padding: 18px;
+            background: rgba(248, 250, 252, 0.85);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            border-left: 4px solid #2d5a8c;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .oportunidade-card:hover {
+            background: rgba(248, 250, 252, 0.95);
+            border-left-color: #059669;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .oportunidade-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+        }
+
+        .oportunidade-status.aberta {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .oportunidade-status.em-andamento {
+            background: rgba(59, 130, 246, 0.15);
+            color: #2563eb;
+        }
+
+        .oportunidade-status.fechada {
+            background: rgba(107, 114, 128, 0.15);
+            color: #4b5563;
+        }
+
+        .oportunidade-titulo {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .oportunidade-titulo [data-lucide] {
+            width: 18px;
+            height: 18px;
+            color: #2d5a8c;
+        }
+
+        .oportunidade-descricao {
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .oportunidade-valor {
+            font-size: 13px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 8px;
+        }
+
+        .oportunidade-meta {
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        .oportunidade-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .oportunidade-meta-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .oportunidade-meta-valor {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #475569;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-subtitle {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .sem-dados {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f2f7 100%);
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1;
+            text-align: center;
+            min-height: 200px;
+            flex-direction: column;
+        }
+
+        .sem-dados-icone {
+            width: 64px;
+            height: 64px;
+            color: #94a3b8;
+            opacity: 0.6;
+        }
+
+        .sem-dados-titulo {
+            font-size: 16px;
+            font-weight: 600;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .sem-dados-texto {
+            font-size: 14px;
+            color: #94a3b8;
+            margin: 8px 0 0 0;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+            margin-bottom: -2px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.4;
+        }
+
+        .tab-button:hover {
+            color: #2d5a8c;
+            background: rgba(248, 250, 252, 0.9);
+        }
+
+        .tab-button.active {
+            color: #2d5a8c;
+            border-bottom-color: #2d5a8c;
+            background: rgba(240, 249, 255, 0.8);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+
+        .tab-button [data-lucide] {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            vertical-align: middle;
+            display: inline;
+        }
+
+        .tab-counter {
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 6px;
+            display: inline-block;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .tab-button.active .tab-counter {
+            background: #2d5a8c;
+            color: white;
+        }
+
+        .description-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .description-icon [data-lucide] {
+            width: 18px;
+            height: 18px;
+            color: #2d5a8c;
+            flex-shrink: 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .scroll-table {
+            overflow-x: auto;
+        }
+
+        .credit-segment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .credit-segment-card {
+            background: rgba(248, 250, 252, 0.85);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            height: auto;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .credit-segment-card:hover {
+            background: rgba(248, 250, 252, 0.95);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-color: rgba(45, 90, 140, 0.2);
+        }
+
+        .credit-segment-highlight {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            box-shadow: 0 2px 12px rgba(34, 197, 94, 0.1);
+        }
+
+        .credit-segment-highlight:hover {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%);
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .credit-segment-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .credit-segment-icon {
+            width: 28px;
+            height: 28px;
+            color: #2d5a8c;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .credit-segment-title-block {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .credit-segment-name {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 13px;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .credit-segment-percentage {
+            font-weight: 700;
+            font-size: 12px;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .credit-segment-percentage.green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .credit-segment-percentage.yellow {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .credit-segment-percentage.orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+
+        .credit-segment-percentage.red {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .credit-segment-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .credit-segment-fill {
+            height: 100%;
+            transition: width 0.5s ease, background-color 0.5s ease;
+            border-radius: 3px;
+        }
+
+        .credit-segment-fill.green {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        }
+
+        .credit-segment-fill.yellow {
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .credit-segment-fill.orange {
+            background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+        }
+
+        .credit-segment-fill.red {
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .credit-segment-info {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.3;
+            text-align: right;
+        }
+
+        .credit-segment-info-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .credit-segment-info-label {
+            font-weight: 500;
+        }
+
+        .credit-segment-info-value {
+            font-weight: 700;
+            color: #2d5a8c;
+        }
+
+        .credit-segment-comp-value {
+            color: #6b7280 !important;
+        }
+
+        .credit-segment-limit-value {
+            color: #059669 !important;
+        }
+
+        @media (max-width: 1024px) {
+            .credit-segment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .credit-segment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .credit-segment-card {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-content > div:first-child {
+                margin-right: 0;
+            }
+
+            .header h1 {
+                font-size: 31px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .header-right {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                width: 100%;
+            }
+
+            .header-logo {
+                height: 118px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .kpi-section {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1439px) {
+            .kpi-section {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .kpi-section {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Dashboard do Cliente</h1>
+                <p>Visão 360º Comercial, Financeiro, Classificação do Cliente</p>
+            </div>
+            <div class="header-right">
+                <img src="../CVALE_LOGO_BRANCA.PNG" alt="C.VALE Logo" class="header-logo" title="C.VALE Cooperativa Agroindustrial">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Data e Atualização -->
+        <div class="data-atualização">
+            Data: <span id="dataDisplay">--/--/----</span> | Atualizado: <span id="atualizadoDisplay">--:--</span>
+        </div>
+
+        <!-- Informações do Cliente -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="user"></i>Dados do Cliente</h2>
+            <div class="info-grid" id="clientInfo">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- KPIs principais -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="trending-up"></i>Indicadores Principais</h2>
+            <div class="kpi-section" id="kpiSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Insights -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="lightbulb"></i>Insights Relevantes</h2>
+            <div class="insights-grid" id="insightsSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Limites de Crédito -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="wallet"></i>Limites de Crédito por Segmento</h2>
+            <div id="creditoSegmentosSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Crédito ICMS -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="building-2"></i>Crédito ICMS</h2>
+            <div class="kpi-section" id="creditoICMSSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="bar-chart-3"></i>Análise de Movimentação Financeira</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">Débitos por Mês de Vencimento</div>
+                    <canvas id="chartFaturamento"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Distribuição por Categoria</div>
+                    <canvas id="chartCategoria"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dados Analíticos -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="credit-card"></i>Dados Analíticos Financeiros e Comercial</h2>
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'tab-debitos')"><i data-lucide="file-text"></i>Títulos em Abertos <span class="tab-counter" id="contador-debitos">0</span></button>
+                <button class="tab-button" onclick="switchTab(event, 'tab-contratos')"><i data-lucide="package"></i>Contratos Insumos com Preço Definido <span class="tab-counter" id="contador-contratos">0</span></button>
+                <button class="tab-button" onclick="switchTab(event, 'tab-mercadorias')"><i data-lucide="truck"></i>Mercadorias a Retirar Contratos Pagos <span class="tab-counter" id="contador-mercadorias">0</span></button>
+            </div>
+
+            <div id="tab-debitos" class="tab-content active">
+                <div class="scroll-table" id="debitosSection">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+
+            <div id="tab-contratos" class="tab-content">
+                <div class="scroll-table" id="contratosSection">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+
+            <div id="tab-mercadorias" class="tab-content">
+                <div class="scroll-table" id="mercadoriasSection">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Débitos em Produtos -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="receipt"></i>Débitos em Produtos</h2>
+            <div class="scroll-table" id="debitosEmProdutosSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Mercadorias a Retirar de Venda Futura -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="box"></i>Mercadorias a Retirar de Venda Futura</h2>
+            <div class="scroll-table" id="mercadoriasVendaFuturaSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Histórico de Atendimento -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="history"></i>Histórico de Atendimento - Últimas 5 Visitas</h2>
+            <div class="historico-section" id="historicoSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+
+        <!-- Oportunidades de Negócios -->
+        <div class="card">
+            <h2><i class="icon" data-lucide="target"></i>Oportunidades de Negócios - C4C Cloud</h2>
+            <div class="oportunidades-grid" id="oportunidadesSection">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Fonte de dados com base Extrato do Produtor, Crédito, C4C Cloud</p>
+        <p style="margin-top: 8px; font-size: 11px; color: #64748b;">GECLI - Departamento de Relacionamento com Cliente</p>
+    </div>
+
+    <script>
+        // Dados completos do cliente
+// ==DATA:START==
+const clienteData = {
+    cliente: {
+        id: "100075344",
+        nome: "RONALDO JOAO VENDRAME",
+        matricula: "0000106768",
+        dataNascimento: "15/08/1972",
+        localAcerto: "C.Vale - Palotina",
+        areaPropria: 83.81,
+        areaArrendada: 0.0,
+        procurador: "ELISABETE MARIA RIEDI VENDRAME",
+        procuradorId: "100111081",
+        emissao: "09/03/2026",
+        dataAtualizacao: "16:47",
+        estado: "PR"
+    },
+    classificacoes: [
+        /* FONTE: C4C Cloud OData - CorporateAccountCollection */
+        /* Dados provisórios - Serão atualizados automaticamente pelo N8N */
+        { nome: "Perfil Comportamental", valor: "Criativo" },
+        { nome: "Negociação e Atendimento", valor: "-" },
+        { nome: "Perfil de Compra", valor: "-" },
+        { nome: "Perfil Negócio", valor: "-" },
+        { nome: "Perfil Preço (Compras)", valor: "30" },
+        { nome: "Perfil Negócio (Compras)", valor: "50" },
+        { nome: "Perfil Relacionamento (Compras)", valor: "20" }
+    ],
+    historico: [
+        /* FONTE: C4C Cloud OData - ActivityCollection */
+        /* Dados de Exemplo - Serão atualizados automaticamente pelo N8N */
+        { data: "05/03/2026", hora: "14:30", consultor: "Carlos Mendes", tipo: "Visita Técnica", assunto: "Análise de aplicação ZAPP QI 620 - Controle de plantas daninhas", observacoes: "Cliente interessado em aumentar volume de compra. Recomendado treinar aplicadores." },
+        { data: "02/03/2026", hora: "10:15", consultor: "Marina Silva", tipo: "Telefonema", assunto: "Seguimento de pedido de fertilizante FERT 02 20 18", observacoes: "Confirmado entrega para próxima semana. Cliente satisfeito." },
+        { data: "26/02/2026", hora: "09:00", consultor: "Roberto Santos", tipo: "Visita Comercial", assunto: "Apresentação de novas sementes SEM SOJA M7739 IPRO", observacoes: "Cliente demonstrou interesse. Solicitou amostra para teste em 2 hectares." },
+        { data: "20/02/2026", hora: "15:45", consultor: "Carlos Mendes", tipo: "Telefonema", assunto: "Resolução de problema com vencimento de títulos", observacoes: "Documentação corrigida. Novo vencimento: 16/01/2026. Débito quitado." },
+        { data: "14/02/2026", hora: "11:20", consultor: "Juliana Costa", tipo: "Visita Técnica", assunto: "Diagnóstico de deficiência nutricional em soja", observacoes: "Recomendado aplicação de fertilizante foliar. Planejado novo atendimento em 15 dias." }
+    ],
+    oportunidades: [
+        /* FONTE: C4C Cloud OData - OpportunityCollection */
+        /* Dados de Exemplo - Serão atualizados automaticamente pelo N8N */
+        { status: "aberta", titulo: "Aquisição de ZAPP QI 620 - Grande Volume", descricao: "Cliente interessado em aumentar volume anual de 513 para 800 unidades de ZAPP QI 620. Demanda para próxima safra 2026/2027.", valor: 145000.00, dataAbertura: "05/03/2026", responsavel: "Carlos Mendes", icone: "package" },
+        { status: "em-andamento", titulo: "Teste de Sementes SEM SOJA M7739 IPRO", descricao: "Amostra de 2 hectares em análise. Cliente aguardando resultados de produtividade. Próxima visita 30/03/2026.", valor: 28000.00, dataAbertura: "26/02/2026", responsavel: "Roberto Santos", icone: "leaf" },
+        { status: "aberta", titulo: "Contrato Anual de Fertilizantes 2026", descricao: "Proposta de contrato anual para FERT 02 20 18 TMIX EVOLUTION. Visando estabilizar preço e volume. Negociação em fase inicial.", valor: 85000.00, dataAbertura: "01/03/2026", responsavel: "Marina Silva", icone: "trending-up" }
+    ],
+    kpis: {
+        totalDebitos: 79042.42,
+        debitosVencidos: 31922.42,
+        areaTotal: 83.81,
+        dataAtualizacao: "09/03/2026"
+    },
+    debitosTitulos: [
+        { descricao: "AGROQUIMICOS", vencimento: "08.12.2025", valorNominal: 1173.05, valorAtual: 1280.6 },
+        { descricao: "AGROQUIMICOS", vencimento: "08.12.2025", valorNominal: 23.56, valorAtual: 36.0 },
+        { descricao: "FERTILIZANTES", vencimento: "09.12.2025", valorNominal: 120.92, valorAtual: 180.92 },
+        { descricao: "DOCS.FATURAM.", vencimento: "16.12.2025", valorNominal: 3828.2, valorAtual: 4560.0 },
+        { descricao: "SEMENTE DE SOJA", vencimento: "16.12.2025", valorNominal: 7800.0, valorAtual: 9800.0 },
+        { descricao: "DOCS.FATURAM.", vencimento: "23.12.2025", valorNominal: 8.2, valorAtual: 0.0 },
+        { descricao: "DOCS.FATURAM.", vencimento: "31.12.2025", valorNominal: 8.2, valorAtual: 0.0 },
+        { descricao: "SEMENTE DE SOJA", vencimento: "16.01.2026", valorNominal: 7065.77, valorAtual: 8000.0 },
+        { descricao: "FERTILIZANTES", vencimento: "05.02.2026", valorNominal: 7800.0, valorAtual: 8064.9 },
+        { descricao: "AGROQUIMICOS", vencimento: "01.04.2026", valorNominal: 48681.21, valorAtual: 45620.0 },
+        { descricao: "PREST.SERV.AS.TEC.AG", vencimento: "01.04.2026", valorNominal: 1500.0, valorAtual: 1500.0 }
+    ],
+    contratos: [
+        { numero: "1009083868", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 70741.81, quantidade: 120.0, unidade: "UN" },
+        { numero: "1009083890", descricao: "KINETOMAX INJETAVEL", local: "FR/50ML PALOTINA", vencimento: "09.10.2025", valor: 67.84, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009083896", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "09.10.2025", valor: 13215.79, quantidade: 24.0, unidade: "UN" },
+        { numero: "1009083896", descricao: "ROUNDUP TRANSORB R", local: "PALOTINA", vencimento: "09.10.2025", valor: 10842.94, quantidade: 19.0, unidade: "UN" },
+        { numero: "1009083899", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "09.10.2025", valor: 550.66, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009083925", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "15.10.2025", valor: 2758.25, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009083928", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "10.10.2025", valor: 1101.65, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009083931", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "10.10.2025", valor: 1101.65, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009083943", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 2947.58, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009083945", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 2358.06, quantidade: 4.0, unidade: "UN" },
+        { numero: "1009083979", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "13.10.2025", valor: 100.0, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009083994", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "14.10.2025", valor: 551.48, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009083995", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "17.11.2025", valor: 5571.38, quantidade: 10.0, unidade: "UN" },
+        { numero: "1009083998", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 89606.29, quantidade: 152.0, unidade: "UN" },
+        { numero: "1009083999", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "14.10.2025", valor: 2205.94, quantidade: 4.0, unidade: "UN" },
+        { numero: "1009084000", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "10.11.2025", valor: 2779.85, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009084001", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "08.12.2025", valor: 1122.21, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084002", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "14.10.2025", valor: 5514.85, quantidade: 10.0, unidade: "UN" },
+        { numero: "1009084012", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "17.11.2025", valor: 1114.28, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084012", descricao: "ROUNDUP TRANSORB R", local: "PALOTINA", vencimento: "17.11.2025", valor: 577.4, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084019", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "15.10.2025", valor: 550.0, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084024", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 316119.77, quantidade: 513.0, unidade: "UN" },
+        { numero: "1009084024", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 1232.43, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084024", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 1848.65, quantidade: 3.0, unidade: "UN" },
+        { numero: "1009084027", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 6162.18, quantidade: 10.0, unidade: "UN" },
+        { numero: "1009084028", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 3081.09, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009084044", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "15.10.2025", valor: 100.0, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084082", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "17.10.2025", valor: 1153.97, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084108", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "22.10.2025", valor: 8667.74, quantidade: 15.0, unidade: "UN" },
+        { numero: "1009084133", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "17.11.2025", valor: 2329.5, quantidade: 4.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 325363.03, quantidade: 528.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 1643.25, quantidade: 3.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 2191.0, quantidade: 4.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 547.75, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 616.22, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 616.22, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 547.75, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084201", descricao: "ROUNDUP ORIGINAL MAIS", local: "PALOTINA", vencimento: "01.04.2026", valor: 547.75, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084222", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 92432.68, quantidade: 150.0, unidade: "UN" },
+        { numero: "1009084224", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "23.10.2025", valor: 86703.45, quantidade: 150.0, unidade: "UN" },
+        { numero: "1009084329", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "13.11.2025", valor: 581.68, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084330", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "12.11.2025", valor: 1163.0, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084330", descricao: "TILT 5L", local: "PALOTINA", vencimento: "12.11.2025", valor: 353.66, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084331", descricao: "TILT 5L", local: "PALOTINA", vencimento: "19.11.2025", valor: 354.41, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084357", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "29.10.2025", valor: 1158.13, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084361", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "29.10.2025", valor: 1158.13, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084379", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 9243.27, quantidade: 15.0, unidade: "UN" },
+        { numero: "1009084380", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 9243.27, quantidade: 15.0, unidade: "UN" },
+        { numero: "1009084381", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 6162.18, quantidade: 10.0, unidade: "UN" },
+        { numero: "1009084459", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 8781.11, quantidade: 15.0, unidade: "UN" },
+        { numero: "1009084477", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "04.11.2025", valor: 87016.1, quantidade: 150.0, unidade: "UN" },
+        { numero: "1009084495", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "05.11.2025", valor: 1160.56, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084506", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 92432.68, quantidade: 150.0, unidade: "UN" },
+        { numero: "1009084529", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "01.04.2026", valor: 9243.27, quantidade: 15.0, unidade: "UN" },
+        { numero: "1009084708", descricao: "SAL AGROPECUARIO SC 25KG", local: "PALOTINA", vencimento: "15.12.2025", valor: 95.47, quantidade: 4.0, unidade: "UN" },
+        { numero: "1009084708", descricao: "SM MINER PLUS PRONTO", local: "SC/30KG PALOTINA", vencimento: "15.12.2025", valor: 919.36, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084709", descricao: "SAL AGROPECUARIO SC 25KG", local: "PALOTINA", vencimento: "15.12.2025", valor: 23.87, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009084761", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "27.11.2025", valor: 1168.25, quantidade: 2.0, unidade: "UN" },
+        { numero: "1009084761", descricao: "ROUNDUP TRANSORB R", local: "PALOTINA", vencimento: "27.11.2025", valor: 2920.61, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009084874", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "22.12.2025", valor: 1770.27, quantidade: 3.0, unidade: "UN" },
+        { numero: "1009084878", descricao: "SAL AGROPECUARIO SC 25KG", local: "PALOTINA", vencimento: "29.12.2025", valor: 217.14, quantidade: 10.0, unidade: "UN" },
+        { numero: "1009084878", descricao: "RACAO BOVINO CONFINAMENTO 16%", local: "PALOTINA", vencimento: "29.12.2025", valor: 28.76, quantidade: 20.0, unidade: "SAC" },
+        { numero: "1009084902", descricao: "SEM SOJA M7739IPRO 200STE", local: "PALOTINA", vencimento: "01.04.2026", valor: 15100.0, quantidade: 151.0, unidade: "SAC" },
+        { numero: "1009085780", descricao: "PULVERIZACAO AEREA - ha (HECTARE)", local: "PALOTINA", vencimento: "01.04.2026", valor: 1050.0, quantidade: 15.0, unidade: "UA" },
+        { numero: "1009085816", descricao: "PULVERIZACAO AEREA - ha (HECTARE)", local: "PALOTINA", vencimento: "01.04.2026", valor: 1050.0, quantidade: 15.0, unidade: "UA" },
+        { numero: "1009085828", descricao: "FERT 33 00 00 - OUROFERTIL MG BB KG", local: "PALOTINA", vencimento: "07.01.2026", valor: 2400.0, quantidade: 1.0, unidade: "TO" },
+        { numero: "1009085950", descricao: "AUREO 5L", local: "PALOTINA", vencimento: "14.01.2026", valor: 3420.0, quantidade: 5.0, unidade: "UN" },
+        { numero: "1009086034", descricao: "SAL AGROPECUARIO SC 25KG", local: "PALOTINA", vencimento: "23.01.2026", valor: 23.68, quantidade: 1.0, unidade: "UN" },
+        { numero: "1009086099", descricao: "FERT 02 20 18 TMIX EVOLUTION-YARA", local: "BB KG PALOTINA", vencimento: "01.04.2026", valor: 1600.0, quantidade: 2.0, unidade: "TO" },
+        { numero: "1009086243", descricao: "ZAPP QI 620 20L", local: "PALOTINA", vencimento: "29.01.2026", valor: 9750.0, quantidade: 15.0, unidade: "UN" }
+    ],
+    mercadorias: [
+        { numero: "1008231734", descricao: "BRANDT BECATRON 1L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1008231734", descricao: "ROUNDUP TRANSORB R  20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "SUPER PLUS U-10 1L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "ROUNDUP TRANSORB R  20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "FEROCE 10KG", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "VERDAVIS 5L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "EXCALIA MAX 5L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "ALADE 5L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "REGLONE 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008669333", descricao: "OMEGA TORANGE 1L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "SUPER PLUS U-10 1L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "FEROCE 10KG", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "VERDAVIS 5L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "EXCALIA MAX 5L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "ALADE 5L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "REGLONE 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1008934821", descricao: "OMEGA TORANGE 1L", local: "PALOTINA", quantidade: 3.0, unidade: "UN", valor: 0 },
+        { numero: "1008985039", descricao: "SEM MILHO DKB360 PRO3 T/P 60STE", local: "PALOTINA", quantidade: 17.0, unidade: "SAC", valor: 0 },
+        { numero: "1009004423", descricao: "PRIMOLEO 20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009004423", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009004423", descricao: "PERITO 970 SG 10KG", local: "PALOTINA", quantidade: 3.0, unidade: "UN", valor: 0 },
+        { numero: "1009004423", descricao: "SPERTO 5KG", local: "PALOTINA", quantidade: 3.0, unidade: "UN", valor: 0 },
+        { numero: "1009004423", descricao: "FEROCE 10KG", local: "PALOTINA", quantidade: 3.0, unidade: "UN", valor: 0 },
+        { numero: "1009004423", descricao: "ABACUS HC 5L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "PRIMOLEO 20L", local: "PALOTINA", quantidade: 3.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "PERITO 970 SG 10KG", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "SPERTO 5KG", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "FEROCE 10KG", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009004427", descricao: "ABACUS HC 5L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009014130", descricao: "FERT 29 08 12 POLYBLEN N-FAST ICL", local: "BB KG PALOTINA", quantidade: 9.0, unidade: "TO", valor: 0 },
+        { numero: "1009083882", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 30.0, unidade: "UN", valor: 0 },
+        { numero: "1009084024", descricao: "ROUNDUP ORIGINAL MAIS  20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084024", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084024", descricao: "ROUNDUP ORIGINAL MAIS  20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084024", descricao: "ROUNDUP ORIGINAL MAIS  20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084056", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009084057", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009084288", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009084767", descricao: "ROUNDUP ORIGINAL MAIS  20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009084775", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009084781", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084798", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 1.0, unidade: "UN", valor: 0 },
+        { numero: "1009084869", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009084870", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009084870", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 6.0, unidade: "UN", valor: 0 },
+        { numero: "1009084907", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 2.0, unidade: "UN", valor: 0 },
+        { numero: "1009084918", descricao: "ZAPP QI 620 20L", local: "PALOTINA", quantidade: 4.0, unidade: "UN", valor: 0 }
+    ],
+    creditoICMS: {
+        apresentadas: 17428.43,
+        reconhecido: 0.0,
+        homologacao: 0.0,
+        aguardandoLiberacao: 0.0,
+        homologados: 165292.2,
+        totalCreditosPresentados: 182720.63
+    },
+    creditoSegmentos: [
+        { segmento: "PJGRAOMI", descricao: "Seg.PJ Grãos MI", limite: 0.01, compromisso: 0, excesso: 0, esgotamento: 0 },
+        { segmento: "0000", descricao: "Segmento Principal - C.Vale", limite: 0, compromisso: -133601.88, excesso: -133601.88, esgotamento: -99999999.9 },
+        { segmento: "VAREJO", descricao: "Seg.Varejo MI", limite: 11500.0, compromisso: 0, excesso: 0, esgotamento: 0 },
+        { segmento: "CADVERAO", descricao: "Crédito Adicional Verão", limite: 0, compromisso: 0, excesso: 0, esgotamento: 0 },
+        { segmento: "CADSAFRINH", descricao: "Crédito Adicional Safrinha", limite: 0, compromisso: 0, excesso: 0, esgotamento: 0 },
+        { segmento: "PRINVESMI", descricao: "Seg.P.Rural Investimento MI", limite: 163000.0, compromisso: 158000.0, excesso: 0, esgotamento: 0 },
+        { segmento: "PRCVERMI", descricao: "Seg.P.Rural Cust.Verão MI", limite: 319528.63, compromisso: 26856.42, excesso: -292672.21, esgotamento: 8.4 },
+        { segmento: "PRCISAFMI", descricao: "Seg.P.Rural Cust.Inv/Safrinha MI", limite: 312517.01, compromisso: 150000.0, excesso: 0, esgotamento: 0 }
+    ],
+    debitosPorMes: {
+        labels: ["Dezembro/2025", "Janeiro/2026", "Fevereiro/2026", "Abril/2026"],
+        valores: [1350.33, 7065.77, 7800.0, 50181.21]
+    },
+    mercadoriasVendaFutura: [
+        { numero: "1009085114", descricao: "RACAO BOVINO CONFINAMENTO 16%", local: "C.VALE - PALOTIN", quantidade: 2.0, unidade: "SAC", valor: 0 },
+        { numero: "1009085114", descricao: "SAL AGROPECUARIO SC 25KG", local: "C.VALE - PALOTIN", quantidade: 5.0, unidade: "UN", valor: 0 },
+        { numero: "1009085347", descricao: "SERINGA DESC. C/AGULHA 1ML", local: "C.VALE - PALOTIN", quantidade: 5.0, unidade: "UN", valor: 0 },
+        { numero: "1009084039", descricao: "ZAPP QI 620 20L", local: "C.VALE - PALOTIN", quantidade: 4.0, unidade: "UN", valor: 0 },
+        { numero: "1009086100", descricao: "FERT 02 20 18 TMIX EVOLUTION-YARA", local: "BB KG C.VALE - PALOTIN", quantidade: 5.0, unidade: "TO", valor: 0 }
+    ],
+    debitosEmProdutos: [
+        { descricao: "CÉDULA PROD. RURAL", contrato: "3470364", produto: "SOJA COMERCIAL", quantidade: 27649.0, vencimento: "01.04.2026" }
+    ]
+};
+// ==DATA:END==
+
+        function formatarData(data) {
+            const d = new Date(data);
+            return d.toLocaleDateString('pt-BR');
+        }
+
+        function formatarMoeda(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valor);
+        }
+
+        function formatarKilogramas(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(valor) + ' kg';
+        }
+
+        function renderizarCliente() {
+            const { cliente, classificacoes } = clienteData;
+            const classificacoesHtml = classificacoes.map(c => `
+                <div class="classificacao-card ${c.valor ? '' : 'classificacao-pendente'}">
+                    <span class="classificacao-label">${c.nome}</span>
+                    <span class="classificacao-valor">${c.valor || '<span style="font-size:11px;color:#94a3b8;font-weight:500">Aguardando C4C</span>'}</span>
+                </div>
+            `).join('');
+
+            const html = `
+                <div class="cliente-header">
+                    <!-- ZONA 1: IDENTIDADE DO CLIENTE -->
+                    <div class="cliente-identidade">
+                        <div class="cliente-nome">${cliente.nome}</div>
+                        <div class="cliente-meta">
+                            <div class="cliente-meta-item">
+                                <span class="cliente-meta-label">Cliente SAP</span>
+                                <span class="cliente-meta-valor">${cliente.id}</span>
+                            </div>
+                            <div class="cliente-meta-item">
+                                <span class="cliente-meta-label">Matrícula</span>
+                                <span class="cliente-meta-valor">${cliente.matricula}</span>
+                            </div>
+                            <div class="cliente-meta-item">
+                                <span class="cliente-meta-label">Data de Nascimento</span>
+                                <span class="cliente-meta-valor">${cliente.dataNascimento}</span>
+                            </div>
+                        </div>
+
+                        <!-- ZONA 1B: CLASSIFICAÇÕES DO CLIENTE -->
+                        <div class="classificacoes-section">
+                            <div class="classificacoes-title">Classificações do Cliente</div>
+                            <div class="classificacoes-grid">
+                                ${classificacoesHtml}
+                            </div>
+                        </div>
+
+                        <div class="cliente-procurador">
+                            <div class="cliente-procurador-label">Procurador</div>
+                            <div class="cliente-procurador-valor">${cliente.procurador}</div>
+                        </div>
+                    </div>
+
+                    <!-- ZONA 2: INDICADORES DA PROPRIEDADE -->
+                    <div class="cliente-propriedade">
+                        <div class="info-item">
+                            <div class="info-label">Área Própria</div>
+                            <div class="info-value">${cliente.areaPropria} <span class="info-unit">ha</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Área Arrendada</div>
+                            <div class="info-value">${cliente.areaArrendada} <span class="info-unit">ha</span></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Local de Acerto</div>
+                            <div class="info-value">${cliente.localAcerto}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Data de Emissão</div>
+                            <div class="info-value">${cliente.emissao}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('clientInfo').innerHTML = html;
+        }
+
+        function obterClasseKPI(valor, classeOriginal) {
+            // Se valor é 0 (ou muito próximo), retorna classe 'zero'
+            if (typeof valor === 'number' && valor === 0) {
+                return 'zero';
+            }
+            return classeOriginal;
+        }
+
+        function renderizarKPIs() {
+            const { kpis, debitosTitulos, contratos, mercadorias, creditoICMS, creditoSegmentos } = clienteData;
+            const hoje = new Date();
+
+            // Calcular valores totais
+            const totalValorContratos = contratos.reduce((acc, c) => acc + (c.valor || 0), 0);
+            const totalValorMercadorias = mercadorias.reduce((acc, m) => acc + (m.valor || 0), 0);
+
+            // Calcular produtos em aberto (contratos + mercadorias)
+            const produtosEmAberto = contratos.length + mercadorias.length;
+
+            // Débitos próximos ao vencimento (7-30 dias)
+            const dataFutura30 = new Date();
+            dataFutura30.setDate(dataFutura30.getDate() + 30);
+            const dataFutura7 = new Date();
+            dataFutura7.setDate(dataFutura7.getDate() + 7);
+
+            const debitosProximos = debitosTitulos.filter(d => {
+                const vencto = new Date(d.vencimento.split('.').reverse().join('-'));
+                return vencto > dataFutura7 && vencto <= dataFutura30;
+            });
+            const totalProximos = debitosProximos.reduce((acc, d) => acc + d.valorAtual, 0);
+
+            // Crédito ICMS Total
+            const creditoICMSTotal = creditoICMS.totalCreditosPresentados || 0;
+
+            // Limite de Crédito Total (soma dos limites dos segmentos)
+            const limiteCreditoTotal = creditoSegmentos.reduce((acc, s) => acc + (s.limite || 0), 0);
+
+            // Crédito Comprometido Total (soma dos compromissos)
+            const creditoComprometido = creditoSegmentos.reduce((acc, s) => acc + (s.compromisso || 0), 0);
+
+            // Crédito Disponível (Limite - Compromisso)
+            const creditoDisponivel = limiteCreditoTotal - creditoComprometido;
+
+            // Percentual de débitos vencidos
+            const pctDebitosVencidos = kpis.totalDebitos > 0 ? ((kpis.debitosVencidos / kpis.totalDebitos) * 100).toFixed(1) : 0;
+
+            const html = `
+                <div class="kpi-card ${obterClasseKPI(kpis.totalDebitos, 'warning')}">
+                    <div class="kpi-value">${formatarMoeda(kpis.totalDebitos)}</div>
+                    <div class="kpi-label">Total Débitos</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(kpis.debitosVencidos, 'negative')}">
+                    <div class="alert-badge"><i data-lucide="alert-circle"></i></div>
+                    <div class="kpi-value">${formatarMoeda(kpis.debitosVencidos)}</div>
+                    <div class="kpi-label">Débitos Vencidos (${pctDebitosVencidos}%)</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(totalProximos, 'warning')}">
+                    <div class="kpi-value">${formatarMoeda(totalProximos)}</div>
+                    <div class="kpi-label">Débitos Próximos (7-30d)</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(produtosEmAberto, 'warning')}">
+                    <div class="kpi-value">${produtosEmAberto}</div>
+                    <div class="kpi-label">Mercadorias a Retirar</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(totalValorContratos, 'warning')}">
+                    <div class="kpi-value">${formatarMoeda(totalValorContratos)}</div>
+                    <div class="kpi-label">Contratos Insumos em Aberto</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(creditoICMSTotal, 'positive')}">
+                    <div class="kpi-value">${formatarMoeda(creditoICMSTotal)}</div>
+                    <div class="kpi-label">Crédito ICMS Total</div>
+                </div>
+                <div class="kpi-card ${obterClasseKPI(creditoDisponivel, 'positive')}">
+                    <div class="kpi-value">${formatarMoeda(creditoDisponivel)}</div>
+                    <div class="kpi-label">Limite Crédito Disponível</div>
+                </div>
+            `;
+            document.getElementById('kpiSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function getIconePorDescricao(descricao) {
+            const desc = descricao.toUpperCase().trim();
+            if (desc.includes('VETERINÁRIO') || desc.includes('VETERINARIO')) return 'sheep';
+            if (desc.includes('AGROQUÍMICO') || desc.includes('ADUBO')) return 'leaf';
+            if (desc.includes('NUTRIÇÃO') || desc.includes('FOLIAR')) return 'droplets';
+            if (desc.includes('SEMENTE')) return 'sprout';
+            if (desc.includes('FERTILIZANTE') || desc.includes('FERT')) return 'clover';
+            if (desc.includes('CORRETIVO')) return 'square';
+            if (desc.includes('PEÇA') || desc.includes('ACESSÓRIO')) return 'wrench';
+            if (desc.includes('ÓLEO') || desc.includes('LUBRIFICANTE')) return 'droplet';
+            if (desc.includes('MEDICINA')) return 'capsules';
+            if (desc.includes('COMPRA') || desc.includes('VAREJO')) return 'shopping-cart';
+            if (desc.includes('DÉBITO') || desc.includes('SERVIÇO')) return 'receipt';
+            return 'box';
+        }
+
+        function renderizarDebitos() {
+            const { debitosTitulos } = clienteData;
+
+            // Verificar se há dados
+            if (!debitosTitulos || debitosTitulos.length === 0) {
+                renderizarMensagemSemDados('debitosSection', 'Títulos em Abertos');
+                return;
+            }
+
+            const linhas = debitosTitulos.map(d => {
+                const vencto = new Date(d.vencimento.split('.').reverse().join('-'));
+                const hoje = new Date();
+                const vencido = vencto < hoje ? 'Vencido' : 'Pendente';
+                const classeStatus = vencido === 'Vencido' ? 'status-vencido' : 'status-pendente';
+                const icone = getIconePorDescricao(d.descricao);
+
+                return `
+                    <tr>
+                        <td><div class="description-icon"><i data-lucide="${icone}"></i><span>${d.descricao}</span></div></td>
+                        <td>${d.vencimento}</td>
+                        <td class="amount-value">${formatarMoeda(d.valorNominal)}</td>
+                        <td class="amount-value">${formatarMoeda(d.valorAtual)}</td>
+                        <td><span class="status-tag ${classeStatus}">${vencido}</span></td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Calcular total do Valor Atual
+            const totalValorAtual = debitosTitulos.reduce((acc, d) => acc + d.valorAtual, 0);
+            const totalValorNominal = debitosTitulos.reduce((acc, d) => acc + d.valorNominal, 0);
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Vencimento</th>
+                            <th>Valor Nominal</th>
+                            <th>Valor Atual</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>${linhas}</tbody>
+                    <tfoot>
+                        <tr style="font-weight: 700; background-color: #f0f2f7; border-top: 2px solid #e2e8f0;">
+                            <td colspan="2" style="text-align: right; padding: 12px 16px;">TOTAL:</td>
+                            <td class="amount-value" style="font-weight: 700;">${formatarMoeda(totalValorNominal)}</td>
+                            <td class="amount-value" style="font-weight: 700;">${formatarMoeda(totalValorAtual)}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+            document.getElementById('debitosSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderizarContratos() {
+            const { contratos } = clienteData;
+
+            // Verificar se há dados
+            if (!contratos || contratos.length === 0) {
+                renderizarMensagemSemDados('contratosSection', 'Contratos Insumos com Preço Definido');
+                return;
+            }
+
+            const hoje = new Date('2026-03-09'); // Data fixa do sistema
+            const linhas = contratos.map(c => {
+                const icone = getIconePorDescricao(c.descricao);
+
+                // Verificar se a data de vencimento é menor que hoje
+                const vencto = new Date(c.vencimento.split('.').reverse().join('-'));
+                const vencido = vencto < hoje;
+                const classeData = vencido ? 'data-vencida' : '';
+
+                return `
+                <tr>
+                    <td>${c.numero}</td>
+                    <td><div class="description-icon"><i data-lucide="${icone}"></i><span>${c.descricao}</span></div></td>
+                    <td class="${classeData}">${c.vencimento}</td>
+                    <td class="amount-negative">${formatarMoeda(c.valor)}</td>
+                    <td>${c.quantidade.toFixed(3)} ${c.unidade}</td>
+                </tr>
+            `;
+            }).join('');
+
+            // Calcular total de valores
+            const totalValor = contratos.reduce((acc, c) => acc + c.valor, 0);
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número Pedido</th>
+                            <th>Descrição</th>
+                            <th>Vencimento</th>
+                            <th>Valor</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>${linhas}</tbody>
+                    <tfoot>
+                        <tr style="font-weight: 700; background-color: #f0f2f7; border-top: 2px solid #e2e8f0;">
+                            <td colspan="3" style="text-align: right; padding: 12px 16px;">TOTAL:</td>
+                            <td class="amount-negative" style="font-weight: 700;">${formatarMoeda(totalValor)}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+            document.getElementById('contratosSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderizarMercadorias() {
+            const { mercadorias } = clienteData;
+
+            // Verificar se há dados
+            if (!mercadorias || mercadorias.length === 0) {
+                renderizarMensagemSemDados('mercadoriasSection', 'Mercadorias a Retirar Contratos Pagos');
+                atualizarContadores();
+                return;
+            }
+
+            const linhas = mercadorias.map(m => {
+                const icone = getIconePorDescricao(m.descricao);
+                return `
+                <tr>
+                    <td>${m.numero}</td>
+                    <td><div class="description-icon"><i data-lucide="${icone}"></i><span>${m.descricao}</span></div></td>
+                    <td>${m.local}</td>
+                    <td>${m.quantidade.toFixed(3)} ${m.unidade}</td>
+                </tr>
+            `;
+            }).join('');
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número Pedido</th>
+                            <th>Descrição</th>
+                            <th>Local</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>${linhas}</tbody>
+                </table>
+            `;
+            document.getElementById('mercadoriasSection').innerHTML = html;
+            lucide.createIcons();
+            atualizarContadores();
+        }
+
+        function renderizarCreditoICMS() {
+            const { creditoICMS } = clienteData;
+            const html = `
+                <div class="kpi-card positive">
+                    <div class="kpi-value">${formatarMoeda(creditoICMS.apresentadas)}</div>
+                    <div class="kpi-label">NFs Aprovadas</div>
+                </div>
+                <div class="kpi-card positive">
+                    <div class="kpi-value">${formatarMoeda(creditoICMS.reconhecido)}</div>
+                    <div class="kpi-label">Crédito Reconhecido</div>
+                </div>
+                <div class="kpi-card warning">
+                    <div class="kpi-value">${formatarMoeda(creditoICMS.homologacao)}</div>
+                    <div class="kpi-label">Em Homologação</div>
+                </div>
+                <div class="kpi-card positive">
+                    <div class="kpi-value">${formatarMoeda(creditoICMS.totalCreditosPresentados)}</div>
+                    <div class="kpi-label">Total Apresentado</div>
+                </div>
+            `;
+            document.getElementById('creditoICMSSection').innerHTML = html;
+        }
+
+        function renderizarMensagemSemDados(elementoId, titulo = "Nenhum dado disponível") {
+            const html = `
+                <div class="sem-dados" data-vazio="true">
+                    <i class="sem-dados-icone" data-lucide="inbox"></i>
+                    <h3 class="sem-dados-titulo">${titulo}</h3>
+                    <p class="sem-dados-texto">Não há registros a exibir nesta seção.</p>
+                </div>
+            `;
+            document.getElementById(elementoId).innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderizarHistorico() {
+            const { historico } = clienteData;
+
+            // Se não há histórico, mostrar placeholders aguardando C4C
+            if (!historico || historico.length === 0) {
+                const placeholders = Array(3).fill(null).map((_, i) => `
+                    <div class="historico-item historico-placeholder">
+                        <div class="historico-dot"></div>
+                        <div class="historico-conteudo">
+                            <div class="historico-data"><span style="color:#cbd5e1">--/--/----</span></div>
+                            <div class="historico-consultor"><span style="color:#cbd5e1">--</span></div>
+                            <div class="historico-texto"><span style="font-size:11px;color:#94a3b8;font-weight:500">Aguardando dados do N8N - C4C Cloud</span></div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const html = `
+                    <div class="historico-timeline">
+                        ${placeholders}
+                    </div>
+                `;
+                document.getElementById('historicoSection').innerHTML = html;
+                return;
+            }
+
+            const itens = historico.map(h => `
+                <div class="historico-item">
+                    <div class="historico-dot"></div>
+                    <div class="historico-conteudo">
+                        <div class="historico-data">${h.data} às ${h.hora || '--'}</div>
+                        <div class="historico-consultor">${h.consultor} • <span style="font-size:11px;color:#666">${h.tipo}</span></div>
+                        <div class="historico-texto"><strong>${h.assunto}</strong></div>
+                        <div style="font-size:12px;color:#666;margin-top:4px;font-style:italic">${h.observacoes}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            const html = `
+                <div class="historico-timeline">
+                    ${itens}
+                </div>
+            `;
+
+            document.getElementById('historicoSection').innerHTML = html;
+        }
+
+        function renderizarOportunidades() {
+            const { oportunidades } = clienteData;
+
+            // Se não há oportunidades, mostrar placeholders aguardando C4C
+            if (!oportunidades || oportunidades.length === 0) {
+                const placeholders = Array(3).fill(null).map((_, i) => `
+                    <div class="oportunidade-card oportunidade-placeholder">
+                        <div class="oportunidade-status" style="background:#cbd5e1;color:#64748b">Aguardando</div>
+                        <div class="oportunidade-titulo">
+                            <i data-lucide="briefcase"></i>
+                            <span style="color:#cbd5e1">Oportunidade ${i + 1}</span>
+                        </div>
+                        <div class="oportunidade-descricao" style="color:#cbd5e1;font-size:11px">Aguardando dados do N8N - C4C Cloud</div>
+                        <div class="oportunidade-valor" style="color:#cbd5e1">R$ --</div>
+                        <div class="oportunidade-meta">
+                            <div class="oportunidade-meta-item">
+                                <span class="oportunidade-meta-label">Abertura</span>
+                                <span class="oportunidade-meta-valor" style="color:#cbd5e1">--/--/----</span>
+                            </div>
+                            <div class="oportunidade-meta-item">
+                                <span class="oportunidade-meta-label">Responsável</span>
+                                <span class="oportunidade-meta-valor" style="color:#cbd5e1">--</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const html = `<div class="oportunidades-grid">${placeholders}</div>`;
+                document.getElementById('oportunidadesSection').innerHTML = html;
+                lucide.createIcons();
+                return;
+            }
+
+            const cards = oportunidades.map(o => {
+                const classeStatus = `oportunidade-status ${o.status}`;
+                const statusTexto = {
+                    'aberta': 'Aberta',
+                    'em-andamento': 'Em Andamento',
+                    'fechada': 'Fechada'
+                }[o.status] || o.status;
+
+                return `
+                    <div class="oportunidade-card">
+                        <div class="${classeStatus}">${statusTexto}</div>
+                        <div class="oportunidade-titulo">
+                            <i data-lucide="${o.ícone || 'briefcase'}"></i>
+                            ${o.titulo}
+                        </div>
+                        <div class="oportunidade-descricao">${o.descricao}</div>
+                        <div class="oportunidade-valor">${formatarMoeda(o.valor)}</div>
+                        <div class="oportunidade-meta">
+                            <div class="oportunidade-meta-item">
+                                <span class="oportunidade-meta-label">Abertura</span>
+                                <span class="oportunidade-meta-valor">${o.dataAbertura}</span>
+                            </div>
+                            <div class="oportunidade-meta-item">
+                                <span class="oportunidade-meta-label">Responsável</span>
+                                <span class="oportunidade-meta-valor">${o.responsavel}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const html = `<div class="oportunidades-grid">${cards}</div>`;
+            document.getElementById('oportunidadesSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderizarMercadoriasVendaFutura() {
+            const { mercadoriasVendaFutura } = clienteData;
+
+            if (!mercadoriasVendaFutura || mercadoriasVendaFutura.length === 0) {
+                renderizarMensagemSemDados('mercadoriasVendaFuturaSection', 'Mercadorias de Venda Futura');
+                return;
+            }
+
+            const linhas = mercadoriasVendaFutura.map(m => {
+                const icone = getIconePorDescricao(m.descricao);
+                return `
+                    <tr>
+                        <td>${m.numero}</td>
+                        <td><div class="description-icon"><i data-lucide="${icone}"></i><span>${m.descricao}</span></div></td>
+                        <td>${m.local}</td>
+                        <td>${m.quantidade.toFixed(3)} ${m.unidade}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Número Pedido</th>
+                            <th>Descrição</th>
+                            <th>Local</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>${linhas}</tbody>
+                </table>
+            `;
+            document.getElementById('mercadoriasVendaFuturaSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderizarDebitosEmProdutos() {
+            const { debitosEmProdutos } = clienteData;
+
+            if (!debitosEmProdutos || debitosEmProdutos.length === 0) {
+                renderizarMensagemSemDados('debitosEmProdutosSection', 'Débitos em Produtos');
+                return;
+            }
+
+            const linhas = debitosEmProdutos.map(d => {
+                const icone = getIconePorDescricao(d.descricao);
+                return `
+                    <tr>
+                        <td><div class="description-icon"><i data-lucide="${icone}"></i><span>${d.descricao}</span></div></td>
+                        <td>${d.contrato}</td>
+                        <td>${d.produto}</td>
+                        <td class="amount-value">${formatarKilogramas(d.quantidade)}</td>
+                        <td>${d.vencimento}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Contrato</th>
+                            <th>Produto</th>
+                            <th>Qtde.Nominal</th>
+                            <th>Vencto</th>
+                        </tr>
+                    </thead>
+                    <tbody>${linhas}</tbody>
+                </table>
+            `;
+            document.getElementById('debitosEmProdutosSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function getCorPorPercentual(percentual) {
+            if (percentual <= 25) return 'green';
+            if (percentual <= 50) return 'yellow';
+            if (percentual <= 75) return 'orange';
+            return 'red';
+        }
+
+        function getIconePorSegmento(segmento) {
+            const iconMap = {
+                'VAREJO': 'shopping-cart',
+                'PRINCIPAL': 'briefcase',
+                'PRINVESMI': 'trending-up',
+                'PJGRAOMI': 'wheat',
+                'PRCVERMI': 'sun',
+                'PRCISAFMI': 'snowflake',
+                'CADVERÃO': 'zap',
+                'CADSAFRINH': 'cloud-rain',
+                'CADINVERNO': 'cloud-snow'
+            };
+            return iconMap[segmento] || 'wallet';
+        }
+
+        function renderizarCreditoSegmentos() {
+            const { creditoSegmentos } = clienteData;
+
+            // Filtrar segmentos onde limite e compromisso são 0
+            let segmentosValidos = creditoSegmentos.filter(c => !(c.limite === 0 && c.compromisso === 0));
+
+            // Reordenar: Trazer os dois segmentos de P.Rural para o início
+            const segmentosDestaque = segmentosValidos.filter(c =>
+                c.segmento === "PRCVERMI" || c.segmento === "PRCISAFMI"
+            );
+            const outrosSegmentos = segmentosValidos.filter(c =>
+                c.segmento !== "PRCVERMI" && c.segmento !== "PRCISAFMI"
+            );
+            segmentosValidos = [...segmentosDestaque, ...outrosSegmentos];
+
+            // Verificar se há dados
+            if (segmentosValidos.length === 0) {
+                renderizarMensagemSemDados('creditoSegmentosSection', 'Limites de Crédito por Segmento');
+                return;
+            }
+
+            const html = `
+                <div class="credit-segment-grid">
+                    ${segmentosValidos.map((c, index) => {
+                        const percentual = c.limite > 0 ? Math.min((Math.abs(c.compromisso) / c.limite) * 100, 100) : 0;
+                        const cor = getCorPorPercentual(percentual);
+                        const icone = getIconePorSegmento(c.segmento);
+                        const isDestaque = index < 2; // Primeiros dois segmentos são destaque
+
+                        return `
+                            <div class="credit-segment-card ${isDestaque ? 'credit-segment-highlight' : ''}">
+                                <div class="credit-segment-header">
+                                    <div>
+                                        <i class="credit-segment-icon" data-lucide="${icone}"></i>
+                                    </div>
+                                    <div class="credit-segment-title-block">
+                                        <div class="credit-segment-name">${c.descricao}</div>
+                                        <div class="credit-segment-percentage ${cor}">${percentual.toFixed(1)}%</div>
+                                    </div>
+                                </div>
+                                <div class="credit-segment-bar">
+                                    <div class="credit-segment-fill ${cor}" style="width: ${percentual}%"></div>
+                                </div>
+                                <div class="credit-segment-info">
+                                    <div class="credit-segment-info-row">
+                                        <span class="credit-segment-info-label">Comp:</span>
+                                        <span class="credit-segment-info-value credit-segment-comp-value">${formatarMoeda(c.compromisso)}</span>
+                                    </div>
+                                    <div class="credit-segment-info-row">
+                                        <span class="credit-segment-info-label">Limite:</span>
+                                        <span class="credit-segment-info-value credit-segment-limit-value">${formatarMoeda(c.limite)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            document.getElementById('creditoSegmentosSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function gerarInsightsDinamicos() {
+            const { debitosTitulos, contratos, mercadorias, creditoICMS, creditoSegmentos, kpis, cliente } = clienteData;
+            const insights = [];
+            const hoje = new Date();
+
+            // 1. DÉBITOS VENCIDOS
+            const debitosVencidos = debitosTitulos.filter(d => {
+                const vencto = new Date(d.vencimento.split('.').reverse().join('-'));
+                return vencto < hoje;
+            });
+            if (debitosVencidos.length > 0) {
+                const totalVencido = debitosVencidos.reduce((acc, d) => acc + d.valorAtual, 0);
+                insights.push({
+                    titulo: "Débitos Vencidos",
+                    icone: "alert-triangle",
+                    texto: `${debitosVencidos.length} débito${debitosVencidos.length > 1 ? 's' : ''} vencido${debitosVencidos.length > 1 ? 's' : ''} totalizando ${formatarMoeda(totalVencido)}. Regularização imediata recomendada.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 2. VENCIMENTOS PRÓXIMOS (7 dias)
+            const dataFutura = new Date();
+            dataFutura.setDate(dataFutura.getDate() + 7);
+            const debitosProximos = debitosTitulos.filter(d => {
+                const vencto = new Date(d.vencimento.split('.').reverse().join('-'));
+                return vencto >= hoje && vencto <= dataFutura && vencto.getTime() !== hoje.getTime();
+            });
+            if (debitosProximos.length > 0) {
+                const totalProximo = debitosProximos.reduce((acc, d) => acc + d.valorAtual, 0);
+                insights.push({
+                    titulo: "Vencimentos Próximos",
+                    icone: "clock",
+                    texto: `${debitosProximos.length} débito${debitosProximos.length > 1 ? 's' : ''} vencendo nos próximos 7 dias totalizando ${formatarMoeda(totalProximo)}. Atenção ao fluxo de caixa.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 3. MAIOR DÉBITO EM CONTRATO
+            const maiorContrato = contratos.reduce((max, c) => c.valor > max.valor ? c : max);
+            if (maiorContrato) {
+                insights.push({
+                    titulo: "Maior Compromisso em Contrato",
+                    icone: "package",
+                    texto: `${maiorContrato.descricao} é o maior débito em contrato com ${formatarMoeda(maiorContrato.valor)} (${maiorContrato.quantidade} ${maiorContrato.unidade}, vence: ${maiorContrato.vencimento}).`,
+                    tipo: "warning"
+                });
+            }
+
+            // 4. PRODUTOS MAIS COMPRADOS
+            const categoriasCont = {};
+            contratos.forEach(c => {
+                const cat = c.descricao.split(' ')[0];
+                categoriasCont[cat] = (categoriasCont[cat] || 0) + 1;
+            });
+            const maiorCategoria = Object.keys(categoriasCont).reduce((max, cat) =>
+                categoriasCont[cat] > categoriasCont[max] ? cat : max
+            );
+            if (maiorCategoria) {
+                insights.push({
+                    titulo: "Principal Tipo de Contrato",
+                    icone: "shopping-cart",
+                    texto: `${maiorCategoria} é a principal categoria com ${categoriasCont[maiorCategoria]} contrato${categoriasCont[maiorCategoria] > 1 ? 's' : ''} em aberto. Verificar tendências de compra.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 5. MERCADORIAS A RETIRAR
+            if (mercadorias.length > 0) {
+                const numerosPedidosUnicos = [...new Set(mercadorias.map(m => m.numero))].length;
+                const produtosUnicos = mercadorias.length;
+                const localRetira = mercadorias[0].local;
+                insights.push({
+                    titulo: "Mercadorias Aguardando Retirada",
+                    icone: "truck",
+                    texto: `${numerosPedidosUnicos} pedido${numerosPedidosUnicos > 1 ? 's' : ''} com ${produtosUnicos} produto${produtosUnicos > 1 ? 's' : ''} variado${produtosUnicos > 1 ? 's' : ''} (sementes, defensivos, insumos) aguardando retirada em ${localRetira}. Organizar logística de coleta.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 5.5 VALOR FINANCEIRO DE MERCADORIAS
+            const totalValorMercadorias = mercadorias.reduce((acc, m) => acc + (m.valor || 0), 0);
+            if (totalValorMercadorias > 0) {
+                insights.push({
+                    titulo: "Investimento em Mercadorias a Retirar",
+                    icone: "package-open",
+                    texto: `Valor total de ${formatarMoeda(totalValorMercadorias)} em mercadorias aguardando retirada. Ativo imobilizado em estoque. Priorizar coleta para liberar valor de crédito.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 5.7 VALOR FINANCEIRO DE CONTRATOS
+            const totalValorContratos = contratos.reduce((acc, c) => acc + (c.valor || 0), 0);
+            if (totalValorContratos > 0) {
+                insights.push({
+                    titulo: "Compromisso em Contratos de Insumos",
+                    icone: "receipt",
+                    texto: `Valor total de ${formatarMoeda(totalValorContratos)} em contratos de insumos em aberto. ${contratos.length} itens diversos em ${[...new Set(contratos.map(c => c.numero))].length} contrato${[...new Set(contratos.map(c => c.numero))].length > 1 ? 's' : ''}. Fluxo de pagamento importante.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 6. CRÉDITO ICMS
+            const creditoTotal = creditoICMS.totalCreditosPresentados;
+            if (creditoTotal > 0) {
+                const reconhecidoPct = ((creditoICMS.reconhecido / creditoTotal) * 100).toFixed(1);
+                insights.push({
+                    titulo: "Crédito ICMS em Processamento",
+                    icone: "building-2",
+                    texto: `Crédito ICMS de ${formatarMoeda(creditoTotal)} em análise. ${reconhecidoPct}% já reconhecido (${formatarMoeda(creditoICMS.reconhecido)}). Acompanhar aprovações.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 7. SEGMENTOS DE CRÉDITO CRÍTICOS
+            const segmentosCriticos = creditoSegmentos.filter(s => s.esgotamento >= 75 && s.esgotamento !== -99999999.9);
+            if (segmentosCriticos.length > 0) {
+                const critico = segmentosCriticos[0];
+                insights.push({
+                    titulo: "Crédito Crítico",
+                    icone: "zap",
+                    texto: `${critico.descricao} com ${critico.esgotamento.toFixed(1)}% de esgotamento. Limite: ${formatarMoeda(critico.limite)}, Compromisso: ${formatarMoeda(critico.compromisso)}.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 8. SEGMENTOS COM CRÉDITO DISPONÍVEL
+            const segmentosDisponiveis = creditoSegmentos.filter(s =>
+                s.limite > 0 && s.esgotamento < 50 && s.esgotamento !== -99999999.9
+            );
+            if (segmentosDisponiveis.length > 0) {
+                const disponivel = segmentosDisponiveis[0];
+                const creditoLivre = disponivel.limite - disponivel.compromisso;
+                insights.push({
+                    titulo: "Crédito Disponível",
+                    icone: "wallet",
+                    texto: `${disponivel.descricao} com ${formatarMoeda(creditoLivre)} disponível (${(100 - disponivel.esgotamento).toFixed(1)}% livre). Oportunidade para novos investimentos.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 9. PRODUÇÃO ATIVA
+            const areaTotal = cliente.areaPropria + cliente.areaArrendada;
+            if (areaTotal > 0) {
+                const areaArrendada = cliente.areaArrendada > 0 ? `${cliente.areaArrendada} ha arrendada` : "Sem áreas arrendadas";
+                insights.push({
+                    titulo: "Produção Rural Ativa",
+                    icone: "wheat",
+                    texto: `Total de ${cliente.areaPropria} ha em produção própria. ${areaArrendada}. Propriedade em operação contínua.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 10. PADRÃO DE COMPRAS (Sazonalidade)
+            const meses = clienteData.debitosPorMes;
+            if (meses.valores.length > 0) {
+                const maiorMes = meses.labels[meses.valores.indexOf(Math.max(...meses.valores))];
+                const maiorValor = Math.max(...meses.valores);
+                insights.push({
+                    titulo: "Padrão de Compras",
+                    icone: "trending-up",
+                    texto: `Maior pico de compras em ${maiorMes} com ${formatarMoeda(maiorValor)}. Analisar sazonalidade para melhor planejamento de crédito.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 11. DÉBITOS EM PRODUTOS (Cédulas Rurais)
+            const { debitosEmProdutos } = clienteData;
+            if (debitosEmProdutos && debitosEmProdutos.length > 0) {
+                const totalProdutos = debitosEmProdutos.reduce((acc, d) => acc + d.quantidade, 0);
+                const primeiroDebito = debitosEmProdutos[0];
+                insights.push({
+                    titulo: "Cédula de Produto Rural",
+                    icone: "receipt",
+                    texto: `${primeiroDebito.descricao} com ${totalProdutos.toFixed(2)} kg em aberto (contrato: ${primeiroDebito.contrato}, vence: ${primeiroDebito.vencimento}). Monitora liquidação por produto.`,
+                    tipo: "warning"
+                });
+            }
+
+            // 12. MERCADORIAS DE VENDA FUTURA
+            const { mercadoriasVendaFutura } = clienteData;
+            if (mercadoriasVendaFutura && mercadoriasVendaFutura.length > 0) {
+                const itemsUnicos = mercadoriasVendaFutura.length;
+                const primeiraVenda = mercadoriasVendaFutura[0];
+                insights.push({
+                    titulo: "Venda Futura Programada",
+                    icone: "calendar-check",
+                    texto: `${itemsUnicos} item${itemsUnicos > 1 ? 'ns' : ''} de venda futura em carteira. Primeira entrega: ${primeiraVenda.descricao} em ${primeiraVenda.local}. Planejamento logístico necessário.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 13. OPORTUNIDADES DE NEGÓCIOS
+            const { oportunidades } = clienteData;
+            if (oportunidades && oportunidades.length > 0) {
+                const totalOportunidades = oportunidades.reduce((acc, o) => acc + o.valor, 0);
+                const oportunidadesAbertas = oportunidades.filter(o => o.status === 'aberta').length;
+                insights.push({
+                    titulo: "Potencial de Vendas",
+                    icone: "target",
+                    texto: `${oportunidades.length} oportunidade${oportunidades.length > 1 ? 's' : ''} em carteira com potencial de ${formatarMoeda(totalOportunidades)} (${oportunidadesAbertas} abertas). Foco em conversão de pipelines.`,
+                    tipo: "positive"
+                });
+            }
+
+            // 14. REPRESENTAÇÃO/PROCURADOR
+            const { procurador, procuradorId } = cliente;
+            if (procurador && procuradorId) {
+                insights.push({
+                    titulo: "Representação Legal",
+                    icone: "user-check",
+                    texto: `Propriedade representada por ${procurador} (ID: ${procuradorId}). Procuração ativa. Validar autoridade em operações críticas.`,
+                    tipo: "info"
+                });
+            }
+
+            return insights;
+        }
+
+        function renderizarInsights() {
+            const insights = gerarInsightsDinamicos();
+
+            // Verificar se há dados
+            if (!insights || insights.length === 0) {
+                renderizarMensagemSemDados('insightsSection', 'Insights Relevantes');
+                return;
+            }
+
+            // Mapeamento de tipos para indicadores visuais
+            const indicadorMap = {
+                'positive': { classe: 'positive', titulo: 'Oportunidade' },
+                'warning': { classe: 'warning', titulo: 'Atenção' },
+                'negative': { classe: 'negative', titulo: 'Risco' },
+                'info': { classe: 'info', titulo: 'Informação' }
+            };
+
+            const html = insights.map(i => {
+                const indicador = indicadorMap[i.tipo] || indicadorMap['info'];
+                return `
+                    <div class="insight-card ${i.tipo}">
+                        <div class="insight-title"><i data-lucide="${i.icone}"></i>${i.titulo}</div>
+                        <div class="insight-text">${i.texto}</div>
+                        <div class="insight-indicator ${indicador.classe}" title="${indicador.titulo}"></div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('insightsSection').innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function criarGraficos() {
+            // Registrar o plugin de rótulos
+            Chart.register(ChartDataLabels);
+
+            // Determinar cores das barras baseado na data de vencimento
+            const hoje = new Date('2026-03-09'); // Data fixa do sistema
+            const backgroundColors = clienteData.debitosPorMes.labels.map(label => {
+                // Parsear o label "Mês/Ano" (ex: "Dezembro/2025")
+                const meses = {
+                    'Janeiro': 1, 'Fevereiro': 2, 'Março': 3, 'Abril': 4,
+                    'Maio': 5, 'Junho': 6, 'Julho': 7, 'Agosto': 8,
+                    'Setembro': 9, 'Outubro': 10, 'Novembro': 11, 'Dezembro': 12
+                };
+
+                const partes = label.split('/');
+                const mês = partes[0].trim();
+                const ano = parseInt(partes[1]);
+
+                // Primeiro dia do mês seguinte para verificar se venceu
+                const mesNum = meses[mês];
+                let dataVencimento = new Date(ano, mesNum, 1); // 1º dia do mês seguinte
+                dataVencimento.setDate(dataVencimento.getDate() - 1); // Último dia do mês
+
+                // Se a data de vencimento for menor que hoje, é vermelho (vencido)
+                return dataVencimento < hoje ? '#dc2626' : '#2d5a8c';
+            });
+
+            const ctx1 = document.getElementById('chartFaturamento').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: clienteData.debitosPorMes.labels,
+                    datasets: [{
+                        label: 'Débitos por Mês (R$)',
+                        data: clienteData.debitosPorMes.valores,
+                        backgroundColor: backgroundColors,
+                        borderColor: '#059669',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: undefined,
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            font: { weight: 'bold', size: 12 },
+                            color: '#2d5a8c',
+                            formatter: (value) => formatarMoeda(value)
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { callback: v => formatarMoeda(v) }
+                        }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('chartCategoria').getContext('2d');
+            const categorias = {};
+
+            // Calcular distribuição por VALOR (não por quantidade de itens)
+            clienteData.debitosTitulos.forEach(d => {
+                const cat = d.descricao.split(' ')[0];
+                if (!categorias[cat]) {
+                    categorias[cat] = { valor: 0, quantidade: 0 };
+                }
+                categorias[cat].valor += d.valorAtual;
+                categorias[cat].quantidade += 1;
+            });
+
+            // Extrair valores para o gráfico
+            const labels = Object.keys(categorias);
+            const valores = Object.values(categorias).map(v => v.valor);
+            const totalValor = valores.reduce((a, b) => a + b, 0);
+
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: valores,
+                        backgroundColor: [
+                            '#2d5a8c', '#059669', '#f59e0b', '#3b82f6',
+                            '#8b5cf6', '#ec4899', '#14b8a6', '#f97316',
+                            '#06b6d4', '#6366f1'
+                        ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' },
+                        datalabels: {
+                            font: { weight: 'bold', size: 12 },
+                            color: 'white',
+                            formatter: (value) => {
+                                const percentual = ((value / totalValor) * 100).toFixed(1);
+                                return percentual + '%';
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function atualizarDataHora() {
+            const agora = new Date();
+            document.getElementById('currentDate').textContent = `Data: ${formatarData(agora)}`;
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            document.getElementById('lastUpdate').textContent = `Atualizado: ${horas}:${minutos}`;
+        }
+
+        function renderizarDataAtualizacao() {
+            const { cliente } = clienteData;
+            const dataElement = document.getElementById('dataDisplay');
+            const atualizadoElement = document.getElementById('atualizadoDisplay');
+            if (dataElement) dataElement.textContent = cliente.emissao;
+            if (atualizadoElement) atualizadoElement.textContent = cliente.dataAtualizacao;
+        }
+
+        function switchTab(event, tabName) {
+            // Remove active de todos os botões e abas
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+            // Adiciona active ao clicado
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function reordenarCardsVazios() {
+            // Atrasar mais tempo para garantir que todos os elementos foram renderizados
+            setTimeout(() => {
+                console.log('[REORDENAR] ===== INICIANDO REORDENAÇÃO (timeout: 1000ms) =====');
+
+                const container = document.querySelector('.container');
+                if (!container) {
+                    console.warn('[REORDENAR] ❌ Container não encontrado');
+                    return;
+                }
+
+                // Selecionar todos os cards
+                const cards = Array.from(container.querySelectorAll('.card'));
+                console.log('[REORDENAR] Total de cards encontrados:', cards.length);
+
+                // Separar cards com dados vazios dos que têm dados
+                const cardsComDados = [];
+                const cardsVazios = [];
+
+                cards.forEach((card, index) => {
+                    const titulo = card.querySelector('h2');
+                    const tituloTexto = titulo ? titulo.textContent.trim() : 'Sem título';
+
+                    // Verifica múltiplas formas de detecção de vazio
+                    const temElementoVazio = card.querySelector('[data-vazio="true"]');
+                    const temClasseSemDados = card.querySelector('.sem-dados');
+                    const temTextoVazio = card.textContent.includes('Não há registros a exibir nesta seção');
+                    const isVazio = temElementoVazio || temClasseSemDados || temTextoVazio;
+
+                    console.log(`  [Card ${index + 1}] "${tituloTexto}"`);
+                    console.log(`    - data-vazio="${!temElementoVazio ? 'não' : 'SIM'}" | .sem-dados="${!temClasseSemDados ? 'não' : 'SIM'}" | texto vazio="${!temTextoVazio ? 'não' : 'SIM'}"`);
+
+                    if (isVazio) {
+                        console.log(`    ➜ ❌ MARCADO COMO VAZIO`);
+                        cardsVazios.push(card);
+                    } else {
+                        console.log(`    ➜ ✓ COM DADOS`);
+                        cardsComDados.push(card);
+                    }
+                });
+
+                console.log(`[REORDENAR] RESUMO: ${cardsComDados.length} com dados | ${cardsVazios.length} vazios`);
+
+                // Se houver cards vazios, reordenar movendo para o final
+                if (cardsVazios.length > 0) {
+                    console.log('[REORDENAR] 🔄 Movendo cards vazios para o final...');
+                    cardsVazios.forEach((card, idx) => {
+                        const titulo = card.querySelector('h2')?.textContent.trim() || 'Sem título';
+                        console.log(`  - Movendo card ${idx + 1}: "${titulo}"`);
+                        container.appendChild(card);
+                    });
+                    console.log('[REORDENAR] ✅ Reordenação concluída com sucesso!');
+                } else {
+                    console.log('[REORDENAR] ℹ️ Nenhum card vazio encontrado');
+                }
+
+                console.log('[REORDENAR] ===== FIM DA REORDENAÇÃO =====');
+            }, 1000);  // Aumentado para 1000ms para garantir renderização completa
+        }
+
+        function atualizarContadores() {
+            const debitosTitulos = clienteData.debitosTitulos || [];
+            const contratos = clienteData.contratos || [];
+            const mercadorias = clienteData.mercadorias || [];
+
+            const contadorDebitos = document.getElementById('contador-debitos');
+            const contadorContratos = document.getElementById('contador-contratos');
+            const contadorMercadorias = document.getElementById('contador-mercadorias');
+
+            if (contadorDebitos) contadorDebitos.textContent = debitosTitulos.length;
+            if (contadorContratos) contadorContratos.textContent = contratos.length;
+            if (contadorMercadorias) contadorMercadorias.textContent = mercadorias.length;
+        }
+
+        window.addEventListener('load', () => {
+            renderizarDataAtualizacao();
+            renderizarCliente();
+            renderizarKPIs();
+            renderizarDebitos();
+            renderizarContratos();
+            renderizarMercadorias();
+            renderizarCreditoICMS();
+            renderizarCreditoSegmentos();
+            renderizarInsights();
+            renderizarMercadoriasVendaFutura();
+            renderizarDebitosEmProdutos();
+            renderizarHistorico();
+            renderizarOportunidades();
+            criarGraficos();
+            atualizarDataHora();
+            atualizarContadores();
+
+            // Inicializar ícones Lucide ANTES da reordenação
+            lucide.createIcons();
+
+            // Reordenar cards vazios APÓS renderização completa
+            reordenarCardsVazios();
+
+            setInterval(atualizarDataHora, 60000);
+        });
+
+        window.atualizarDadosDashboard = function(novosDados) {
+            Object.assign(clienteData, novosDados);
+            renderizarDataAtualizacao();
+            renderizarCliente();
+            renderizarKPIs();
+            renderizarDebitos();
+            renderizarContratos();
+            renderizarMercadorias();
+            renderizarCreditoICMS();
+            renderizarCreditoSegmentos();
+            renderizarInsights();
+            renderizarMercadoriasVendaFutura();
+            renderizarDebitosEmProdutos();
+            renderizarHistorico();
+            renderizarOportunidades();
+            Chart.helpers.each(Chart.instances, instance => instance.destroy());
+            criarGraficos();
+            atualizarDataHora();
+            atualizarContadores();
+
+            // Reinicializar ícones Lucide ANTES da reordenação
+            lucide.createIcons();
+
+            // Reordenar cards vazios APÓS renderização completa
+            reordenarCardsVazios();
+        };
+    </script>
+</body>
+</html>
